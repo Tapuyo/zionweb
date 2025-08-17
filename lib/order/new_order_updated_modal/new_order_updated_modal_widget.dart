@@ -1,4 +1,5 @@
 import '/backend/schema/structs/index.dart';
+import '/components/pdf_viewer_file_widget.dart';
 import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -56,6 +57,8 @@ class _NewOrderUpdatedModalWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget.isDraft == false) {
         if (widget.isXdeal!) {
+          _model.isLoading = true;
+          safeSetState(() {});
           _model.pdfWarranty = await actions.pdfInvoice(
             widget.products?.toList(),
             widget.subtotal,
@@ -66,6 +69,8 @@ class _NewOrderUpdatedModalWidgetState
           _model.pdfGenerate = _model.pdfWarranty;
           safeSetState(() {});
         } else {
+          _model.isLoading = true;
+          safeSetState(() {});
           _model.pdfWarranty1 = await actions.pdfInvoice(
             widget.products?.toList(),
             widget.subtotal,
@@ -85,6 +90,8 @@ class _NewOrderUpdatedModalWidgetState
           safeSetState(() {});
         }
       } else {
+        _model.isLoading = true;
+        safeSetState(() {});
         _model.pdfQuotation = await actions.pdfQuotation(
           widget.products?.toList(),
           widget.subtotal,
@@ -95,6 +102,9 @@ class _NewOrderUpdatedModalWidgetState
         _model.pdfGenerate = _model.pdfQuotation;
         safeSetState(() {});
       }
+
+      _model.isLoading = false;
+      safeSetState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -351,14 +361,31 @@ class _NewOrderUpdatedModalWidgetState
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Icon(
-                                          Icons.check_circle_outline,
-                                          color: FlutterFlowTheme.of(context)
-                                              .success,
-                                          size: 64.0,
+                                        Builder(
+                                          builder: (context) {
+                                            if (widget.isDraft ?? false) {
+                                              return Icon(
+                                                Icons.check_circle_outline,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .success,
+                                                size: 64.0,
+                                              );
+                                            } else {
+                                              return Icon(
+                                                Icons.edit_note_sharp,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black100,
+                                                size: 64.0,
+                                              );
+                                            }
+                                          },
                                         ),
                                         Text(
-                                          'New order has been created!',
+                                          widget.isDraft!
+                                              ? 'New order is saved to drafts!'
+                                              : 'New order has been created!',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -391,10 +418,78 @@ class _NewOrderUpdatedModalWidgetState
                       color: FlutterFlowTheme.of(context).alternate,
                       lineStyle: DividerLineStyle.dashed,
                     ),
-                    FlutterFlowPdfViewer(
-                      fileBytes: _model.pdfGenerate?.bytes,
-                      height: 300.0,
-                      horizontalScroll: false,
+                    Builder(
+                      builder: (context) {
+                        if (!_model.isLoading) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 0.0, 20.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Builder(
+                                      builder: (context) => InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: PdfViewerFileWidget(
+                                                  pdfFile: _model.pdfGenerate!,
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_outward,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              FlutterFlowPdfViewer(
+                                fileBytes: _model.pdfGenerate?.bytes,
+                                height: 300.0,
+                                horizontalScroll: false,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Text(
+                            'loading...',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: FlutterFlowTheme.of(context)
+                                      .bodyMediumFamily,
+                                  letterSpacing: 0.0,
+                                  useGoogleFonts: !FlutterFlowTheme.of(context)
+                                      .bodyMediumIsCustom,
+                                ),
+                          );
+                        }
+                      },
                     ),
                     Padding(
                       padding:

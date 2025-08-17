@@ -2,11 +2,11 @@ import '/flutter_flow/flutter_flow_pdf_viewer.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'pdf_viewer_quotation_model.dart';
-export 'pdf_viewer_quotation_model.dart';
+import 'pdf_viewer_file_model.dart';
+export 'pdf_viewer_file_model.dart';
 
-class PdfViewerQuotationWidget extends StatefulWidget {
-  const PdfViewerQuotationWidget({
+class PdfViewerFileWidget extends StatefulWidget {
+  const PdfViewerFileWidget({
     super.key,
     required this.pdfFile,
   });
@@ -14,12 +14,11 @@ class PdfViewerQuotationWidget extends StatefulWidget {
   final FFUploadedFile? pdfFile;
 
   @override
-  State<PdfViewerQuotationWidget> createState() =>
-      _PdfViewerQuotationWidgetState();
+  State<PdfViewerFileWidget> createState() => _PdfViewerFileWidgetState();
 }
 
-class _PdfViewerQuotationWidgetState extends State<PdfViewerQuotationWidget> {
-  late PdfViewerQuotationModel _model;
+class _PdfViewerFileWidgetState extends State<PdfViewerFileWidget> {
+  late PdfViewerFileModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -30,7 +29,7 @@ class _PdfViewerQuotationWidgetState extends State<PdfViewerQuotationWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => PdfViewerQuotationModel());
+    _model = createModel(context, () => PdfViewerFileModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }

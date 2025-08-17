@@ -8,6 +8,8 @@ class NewOrderUpdatedModalModel
 
   FFUploadedFile? pdfGenerate;
 
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Custom Action - pdfInvoice] action in NewOrderUpdatedModal widget.
