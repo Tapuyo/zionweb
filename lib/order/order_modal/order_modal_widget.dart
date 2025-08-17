@@ -13,7 +13,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/order/list_view_payment_method_component/list_view_payment_method_component_widget.dart';
 import '/order/list_view_product_component/list_view_product_component_widget.dart';
-import '/order/new_order_draft_modal/new_order_draft_modal_widget.dart';
 import '/order/new_order_updated_modal/new_order_updated_modal_widget.dart';
 import '/order/wizard/wizard_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -5589,30 +5588,6 @@ class _OrderModalWidgetState extends State<OrderModalWidget> {
                                                 },
                                               );
                                               Navigator.pop(context);
-                                              await showDialog(
-                                                context: context,
-                                                builder: (dialogContext) {
-                                                  return Dialog(
-                                                    elevation: 0,
-                                                    insetPadding:
-                                                        EdgeInsets.zero,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                                0.0, 0.0)
-                                                            .resolve(
-                                                                Directionality.of(
-                                                                    context)),
-                                                    child:
-                                                        NewOrderDraftModalWidget(
-                                                      orderCode:
-                                                          _model.orderCode,
-                                                    ),
-                                                  );
-                                                },
-                                              );
-
                                               await showDialog(
                                                 context: context,
                                                 builder: (dialogContext) {

@@ -420,7 +420,7 @@ class _NewOrderUpdatedModalWidgetState
                                   } else {
                                     await downloadFile(
                                       filename: 'Warranty',
-                                      uploadedFile: _model.pdfWarranty!,
+                                      uploadedFile: _model.pdfWarranty1!,
                                     );
                                     await downloadFile(
                                       filename: 'Cartificate',

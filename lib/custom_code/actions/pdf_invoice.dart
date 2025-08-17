@@ -150,7 +150,7 @@ Future<FFUploadedFile> pdfInvoice(
                                             pw.EdgeInsetsDirectional.fromSTEB(
                                                 24, 0, 24, 0),
                                         child: pw.Text(
-                                          'Warranty',
+                                          'Inovice',
                                           textAlign: pw.TextAlign.center,
                                           style: pw.TextStyle(
                                               fontSize: 20,
